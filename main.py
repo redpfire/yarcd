@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 import irc.bot
 import irc.strings
-import sys, time, datetime
+import sys, time, datetime, fileinput
 from irc.client import ip_numstr_to_quad, ip_quad_to_numstr
+from threading import Thread
 
 class YarcBOT(irc.bot.SingleServerIRCBot):
     def __init__(self):
@@ -52,5 +53,18 @@ class YarcBOT(irc.bot.SingleServerIRCBot):
 
         if args[0] == "stats":
             self.ponline()
+        if args[0] == "eval":
+            if nick == "_aika" and nick in self.channels["#yarc"].opers():
+                try:
+                    r = eval(" ".join(args[1::]))
+                    c.privmsg("#yarc", str(r))
+                except:
+                    pass
 
-YarcBOT().start()
+bot = YarcBOT()
+thr = Thread(target = bot.start, args = ())
+thr.start()
+
+for line in fileinput.input():
+    r = eval(line)
+    print(r)
