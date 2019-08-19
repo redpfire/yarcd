@@ -5,6 +5,7 @@ import sys, time, datetime, fileinput
 from irc.client import ip_numstr_to_quad, ip_quad_to_numstr
 from threading import Thread
 
+
 class YarcBOT(irc.bot.SingleServerIRCBot):
     def __init__(self):
         self.nickname = "YARCd"
@@ -45,6 +46,9 @@ class YarcBOT(irc.bot.SingleServerIRCBot):
 
         if len(n) > 1 and n[0] == "yd":
             self.command(e, n[1].strip())
+    
+    def print(self, c, s):
+        c.privmsg("#yarc", str(s))
 
     def command(self, e, ar):
         args = ar.split(" ")
