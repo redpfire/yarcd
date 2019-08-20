@@ -26,10 +26,13 @@ class YarcBOT(irc.bot.SingleServerIRCBot):
     def ponline(self):
         c = datetime.datetime.now() - self.onlinesince
         d = divmod(c.days * 86400 + c.seconds, 60)
+        m = divmod(d[0], 60)
+        h = divmod(m[0], 60)
+        dd = divmod(h, 24)
         self.connection.privmsg("#yarc", "Online for: %d days, %d hours, %d minutes and %d seconds" %
-                (divmod(d[0], 3600)[0],
-                 divmod(d[0], 60)[0],
-                 d[0],
+                (dd[0],
+                 h[1],
+                 m[1],
                  d[1]))
 
     def on_welcome(self, c, e):
