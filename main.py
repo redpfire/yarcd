@@ -28,7 +28,7 @@ class YarcBOT(irc.bot.SingleServerIRCBot):
         d = divmod(c.days * 86400 + c.seconds, 60)
         m = divmod(d[0], 60)
         h = divmod(m[0], 60)
-        dd = divmod(h, 24)
+        dd = divmod(h[0], 24)
         self.connection.privmsg("#yarc", "Online for: %d days, %d hours, %d minutes and %d seconds" %
                 (dd[0],
                  h[1],
